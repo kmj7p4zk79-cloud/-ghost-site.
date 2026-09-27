@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>Ghost — Red UI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#050505;color:#eee;
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+}
+body:before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.9)),
+    url("ghost-ui.png") center/cover fixed;
+  opacity:.22;
+}
+header{
+  height:76px;padding:0 4%;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid #5b0909;
+  background:rgba(0,0,0,.88);position:sticky;top:0;z-index:5;
+}
+.brand{font-size:28px;font-weight:900;color:#ff1717;letter-spacing:2px}
+nav{display:flex;gap:28px}
+nav a{color:#aaa;text-decoration:none;font-weight:700}
+nav a.active,nav a:hover{color:#ff1717}
+.online{border:1px solid #a00;border-radius:10px;padding:8px 13px}
+.dot{display:inline-block;width:10px;height:10px;background:#00e676;border-radius:50%;margin-right:7px}
+.hero{text-align:center;padding:58px 20px 35px}
+.hero h1{font-size:clamp(52px,9vw,100px);color:#ff1717;text-shadow:0 0 35px #800}
+.hero p{color:#aaa;letter-spacing:4px;margin-top:8px}
+.grid{
+  width:92%;max-width:1150px;margin:auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px
+}
+.card,.panel{
+  background:rgba(7,7,7,.92);border:1px solid #c10c0c;
+  border-radius:13px;box-shadow:0 0 18px rgba(255,0,0,.08)
+}
+.card{padding:24px 20px}
+.card h2{font-size:19px;margin-bottom:7px}
+.price{color:#ff2020;font-size:23px;font-weight:900}
+.card p{color:#aaa;margin:14px 0 18px;min-height:20px}
+button{
+  border:1px solid #ff2020;background:#f01818;color:#fff;
+  border-radius:9px;padding:13px 16px;font-weight:900;cursor:pointer;width:100%
+}
+button:hover{background:#ff3333}
+.layout{
+  width:92%;max-width:1150px;margin:24px auto 60px;
+  display:grid;grid-template-columns:2.2fr 1fr;gap:22px
+}
+.panel{padding:20px}
+.panel h2{color:#ff2020;margin-bottom:14px;font-size:18px}
+textarea{
+  width:100%;height:300px;background:#020202;color:#ddd;
+  border:1px solid #421010;border-radius:9px;padding:16px;
+  font:14px/1.5 monospace;resize:vertical;outline:none
+}
+textarea:focus{border-color:#ff2020}
+.controls{display:flex;gap:10px;margin-top:12px}
+select,.secondary{
+  background:#090909;color:#ddd;border:1px solid #8d1111;
+  border-radius:8px;padding:11px 13px
+}
+.controls button{width:auto;margin-left:auto}
+.output{
+  margin-top:16px;min-height:90px;background:#020202;
+  border:1px solid #321010;border-radius:9px;padding:15px;
+  font:13px monospace;color:#999;white-space:pre-wrap
+}
+.download{display:grid;gap:12px}
+.download button{text-align:left}
+.ios-help{margin-top:20px;padding:15px;border:1px solid #451010;border-radius:9px;color:#aaa;line-height:1.7}
+footer{text-align:center;border-top:1px solid #250909;padding:28px;color:#555}
+@media(max-width:850px){
+  .grid{grid-template-columns:1fr 1fr}
+  .layout{grid-template-columns:1fr}
+  nav{display:none}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr}
+  .hero{padding-top:40px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">GHOST</div>
+  <nav>
+    <a class="active" href="#home">Home</a>
+    <a href="#executor">Executor</a>
+    <a href="#downloads">Downloads</a>
+    <a href="#settings">Settings</a>
+  </nav>
+  <div class="online"><span class="dot"></span>Online</div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <h1>GHOST</h1>
+    <p>THE ULTIMATE SCRIPTING WORKSPACE</p>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>🎁 FREE</h2><div class="price">24 HOURS</div>
+      <p>Try Ghost for free for 24 hours.</p>
+      <button onclick="openExecutor()">GET FREE</button>
+    </div>
+
+    <div class="card">
+      <h2>⏱ $1.99</h2><div class="price">24 HOURS</div>
+      <p>24 hours of access.</p>
+      <button onclick="alert('Connect your payment provider here.')">GET 24 HOURS</button>
+    </div>
+
+    <div class="card">
+      <h2>♛ $4.99</h2><div class="price">PERMANENT</div>
+      <p>Permanent access to Ghost.</p>
+      <button onclick="alert('Connect your payment provider here.')">GET PERMANENT</button>
+    </div>
+
+    <div class="card">
+      <h2> iPHONE</h2><div class="price">iOS DOWNLOAD</div>
+      <p>Install Ghost on your iPhone.</p>
+      <button onclick="showIOS()">DOWNLOAD FOR iOS</button>
+    </div>
+  </section>
+
+  <section id="executor" class="layout">
+    <div class="panel">
+      <h2>〈/〉 SCRIPT WORKSPACE</h2>
+      <textarea id="editor">// Write JavaScript for the sandbox here
+console.log("Hello from Ghost");</textarea>
+      <div class="controls">
+        <select id="language"><option>JavaScript</option></select>
+        <button onclick="runCode()">▶ EXECUTE</button>
+      </div>
+      <div id="output" class="output">Output will appear here...</div>
+    </div>
+
+    <aside id="downloads" class="panel">
+      <h2>⇩ DOWNLOADS</h2>
+      <div class="download">
+        <button onclick="alert('Add your PC download URL here.')">▣ &nbsp; Download for PC</button>
+        <button onclick="showIOS()"> &nbsp; Download for iOS</button>
+      </div>
+      <div id="iosHelp" class="ios-help" style="display:none">
+        <b style="color:#ff2020">HOW TO INSTALL ON iOS</b><br>
+        1. Open this page in Safari.<br>
+        2. Tap the Share button.<br>
+        3. Choose <b>Add to Home Screen</b>.<br>
+        4. Tap <b>Add</b>.
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer>Ghost © 2026</footer>
+
+<script>
+function openExecutor(){
+  document.getElementById("executor").scrollIntoView({behavior:"smooth"});
+}
+function showIOS(){
+  const box=document.getElementById("iosHelp");
+  box.style.display="block";
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function runCode(){
+  const code=document.getElementById("editor").value;
+  const output=document.getElementById("output");
+  const logs=[];
+  const safeConsole={
+    log:(...args)=>logs.push(args.map(String).join(" ")),
+    error:(...args)=>logs.push("ERROR: "+args.map(String).join(" "))
+  };
+  try{
+    const fn=new Function("console",'"use strict";'+code);
+    fn(safeConsole);
+    output.textContent=logs.length?logs.join("\n"):"Script finished.";
+  }catch(e){
+    output.textContent="Error: "+e.message;
+  }
+}
+</script>
+</body>
+</html>
